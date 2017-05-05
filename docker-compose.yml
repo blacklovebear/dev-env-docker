@@ -1,0 +1,65 @@
+# start gitlab zh
+# docker run --detach \
+#     --hostname gitlab.example.com \
+#     --publish 8929:8929 --publish 2289:22 \
+#     --env GITLAB_OMNIBUS_CONFIG="external_url 'http://172.18.84.231:8929'; gitlab_rails['gitlab_shell_ssh_port']=2289;" \
+#     --name gitlab \
+#     --restart always \
+#     --privileged \
+#     --volume /srv/gitlab/config:/etc/gitlab \
+#     --volume /srv/gitlab/logs:/var/log/gitlab \
+#     --volume /srv/gitlab/data:/var/opt/gitlab \
+#     registry.cn-hangzhou.aliyuncs.com/tospur/docker-gitlab-ce
+
+gitlab:
+    image: registry.cn-hangzhou.aliyuncs.com/tospur/docker-gitlab-ce
+    container_name: gitlab
+    hostname: gitlab.example.com
+    restart: always
+    privileged: true
+    volumes:
+        - /srv/gitlab/config:/etc/gitlab
+        - /srv/gitlab/logs:/var/log/gitlab
+        - /srv/gitlab/data:/var/opt/gitlab
+    ports:
+        - "8929:8929"
+        - "2289:22"
+    environment:
+        - GITLAB_OMNIBUS_CONFIG="external_url 'http://${GITLAB_EXTERNAL_IP}:8929'; gitlab_rails['gitlab_shell_ssh_port']=2289;"
+
+# docker run -d --name sonarqube -p 9000:9000 -p 9092:9092 sonarqube
+sonar:
+    image: sonarqube
+    container_name: sonarqube
+    ports:
+        - "9000:9000"
+        - "9092:9092"
+
+# docker run -d -p 8081:8081 --name nexus sonatype/nexus
+nexus:
+    image: sonatype/nexus
+    container_name: nexus
+    ports:
+        - "8081:8081"
+
+# docker run -itd --name tomcat -p 80:8080 tomcat:8.0
+tomcat:
+    image: tomcat:8.0
+    container_name: tomcat
+    ports:
+        - "80:8080"
+
+# docker run -itd -p 8080:8080 --name jenkins -v /etc/localtime:/etc/localtime:ro stephenreed/java8-jenkins-maven-git-nano 
+jenkins:
+    image: stephenreed/java8-jenkins-maven-git-nano
+    container_name: jenkins
+    ports:
+        - "8080:8080"
+    volumes:
+        - /etc/localtime:/etc/localtime:ro
+    links:
+        - gitlab
+        - sonar
+        - nexus
+        - tomcat
+
