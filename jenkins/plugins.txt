@@ -1,0 +1,4 @@
+maven-plugin:2.15.1
+git:3.3.0
+sonar:2.6.1
+github:1.27.0
