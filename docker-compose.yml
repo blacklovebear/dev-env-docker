@@ -49,17 +49,19 @@ tomcat:
     ports:
         - "80:8080"
 
-# docker run -itd -p 8080:8080 --name jenkins -v /etc/localtime:/etc/localtime:ro stephenreed/java8-jenkins-maven-git-nano 
+# docker run -d --name jenkins -p 8080:8080 -p 50000:50000 -v /var/jenkins_home registry.cn-hangzhou.aliyuncs.com/tospur/jenkins
 jenkins:
-    image: stephenreed/java8-jenkins-maven-git-nano
+    image: registry.cn-hangzhou.aliyuncs.com/tospur/jenkins
     container_name: jenkins
     ports:
         - "8080:8080"
+        - "50000:50000"
     volumes:
-        - /etc/localtime:/etc/localtime:ro
+        - /var/jenkins_home
     links:
         - gitlab
         - sonar
         - nexus
         - tomcat
+
 

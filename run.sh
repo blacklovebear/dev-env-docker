@@ -17,9 +17,25 @@ docker stop jenkins && docker rm -v jenkins
 
 
 docker run -d --name jenkins -p 8080:8080 -p 50000:50000 -v /var/jenkins_home jenkins
+
+
+docker run -d --name jenkins -p 8080:8080 -p 50000:50000 -v /var/jenkins_home registry.cn-hangzhou.aliyuncs.com/tospur/jenkins
+
+
+docker exec jenkins sh -c "cat /var/jenkins_home/secrets/initialAdminPassword"
+
+
 c67c6bac7b714641beabafd582715c47
 
 
+JENKINS_HOST=localhost:8080
+curl -sSL "http://$JENKINS_HOST/pluginManager/api/xml?depth=1&xpath=/*/*/shortName|/*/*/version&wrapper=plugins" | perl -pe 's/.*?<shortName>([\w-]+).*?<version>([^<]+)()(<\/\w+>)+/\1 \2\n/g'|sed 's/ /:/'
+
+JENKINS_HOST=admin:8250af2dd26040e1b58cde99258badc4@localhost:8080
+curl -sSL "http://$JENKINS_HOST/pluginManager/api/xml?depth=1&xpath=/*/*/shortName|/*/*/version&wrapper=plugins" | perl -pe 's/.*?<shortName>([\w-]+).*?<version>([^<]+)()(<\/\w+>)+/\1 \2\n/g'|sed 's/ /:/'
+
+
+http://172.18.84.231:8080
 
 # start nginx
 # more function look: https://hub.docker.com/_/nginx/
