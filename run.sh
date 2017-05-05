@@ -15,6 +15,12 @@ docker exec jenkins sh -c "nohup java -jar opt/jenkins.war &"
 docker stop jenkins && docker rm -v jenkins
 
 
+
+docker run -d --name jenkins -p 8080:8080 -p 50000:50000 -v /var/jenkins_home jenkins
+c67c6bac7b714641beabafd582715c47
+
+
+
 # start nginx
 # more function look: https://hub.docker.com/_/nginx/
 # docker run --name some-nginx -v /some/content:/usr/share/nginx/html:ro -d nginx

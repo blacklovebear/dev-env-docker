@@ -24,11 +24,16 @@ start-compose() {
         GITLAB_EXTERNAL_IP=$host_ip docker-compose up -d
     else
         echo "docker-compose.yml doesn't exist"
-    done
+    fi
 }
 
 clean-all-container() {
     docker stop $(docker ps -a -q) && docker rm -v $(docker ps -a -q)
+}
+
+install-docker-compose() {
+    curl -L https://github.com/docker/compose/releases/download/1.13.0/docker-compose-Linux-x86_64 > /usr/local/bin/docker-compose
+    chmod a+x /usr/local/bin/docker-compose
 }
 
 
