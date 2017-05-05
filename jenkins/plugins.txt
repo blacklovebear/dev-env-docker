@@ -1,3 +1,15 @@
+credentials:2.1.8
+display-url-api:2.0
+workflow-scm-step:1.14.2
+credentials:2.1.13
+git-client:2.4.0
+mailer:1.18
+matrix-project:1.7.1
+scm-api:2.1.0
+ssh-credentials:1.13
+javadoc:1.0
+junit:1.6
+mailer:1.7
 maven-plugin:2.15.1
 git:3.3.0
 sonar:2.6.1
