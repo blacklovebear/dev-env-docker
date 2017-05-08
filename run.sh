@@ -93,6 +93,7 @@ docker run -d --name sonarqube -p 9000:9000 -p 9092:9092 sonarqube
 # open port
 firewall-cmd --zone=public --add-port=9000/tcp --permanent
 firewall-cmd --reload
+# admin:admin
 
 # analysis code 
 # default upload result to localhost:9000
