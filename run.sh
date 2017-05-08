@@ -53,7 +53,9 @@ docker run -it --link redis:redis --rm redis redis-cli -h redis -p 6379
 
 # start tomcat
 # more function :https://hub.docker.com/_/tomcat/
-docker run -itd --name tomcat -p 8080:8080 tomcat:8.0
+docker run -itd --name tomcat -p 80:8080 registry.cn-hangzhou.aliyuncs.com/tospur/tomcat
+
+
 #clean 
 docker stop tomcat && docker rm -v tomcat
 
