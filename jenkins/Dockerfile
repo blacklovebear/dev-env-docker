@@ -26,10 +26,8 @@ ADD hudson.tasks.Maven.xml /var/jenkins_home/
 ADD credentials.xml /var/jenkins_home/
 ADD jobs /var/jenkins_home/jobs
 
+# change own
 RUN chown jenkins:jenkins -R /var/jenkins_home/
-
-# drop back to the regular jenkins user - good practice
-USER jenkins 
 
 COPY plugins.txt /usr/share/jenkins/plugins.txt
 RUN /usr/local/bin/plugins.sh /usr/share/jenkins/plugins.txt
