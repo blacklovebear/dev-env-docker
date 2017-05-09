@@ -20,18 +20,19 @@ RUN ln -s /opt/maven/bin/mvn /usr/local/bin
 RUN rm -f /tmp/apache-maven-3.2.2.tar.gz
 ENV MAVEN_HOME /opt/maven
 
+# add sonar and maven config file
+ADD hudson.plugins.sonar.SonarGlobalConfiguration.xml /var/jenkins_home/
+ADD hudson.tasks.Maven.xml /var/jenkins_home/
+ADD credentials.xml /var/jenkins_home/
+ADD jobs /var/jenkins_home/jobs
+
+RUN chown jenkins:jenkins -R /var/jenkins_home/
 
 # drop back to the regular jenkins user - good practice
 USER jenkins 
 
 COPY plugins.txt /usr/share/jenkins/plugins.txt
 RUN /usr/local/bin/plugins.sh /usr/share/jenkins/plugins.txt
-
-# add sonar and maven config file
-ADD hudson.plugins.sonar.SonarGlobalConfiguration.xml /var/jenkins_home/
-ADD hudson.tasks.Maven.xml /var/jenkins_home/
-ADD credentials.xml /var/jenkins_home/
-ADD jobs /var/jenkins_home/jobs
 
 
 
