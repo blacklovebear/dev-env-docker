@@ -1,11 +1,9 @@
 FROM jenkins
 
-
 USER root
 
 # install wget, git
 RUN apt-get update && apt-get install -y wget git
-
 
 # get maven 3.2.2
 RUN wget --no-verbose -O /tmp/apache-maven-3.2.2.tar.gz http://archive.apache.org/dist/maven/maven-3/3.2.2/binaries/apache-maven-3.2.2-bin.tar.gz
@@ -26,9 +24,7 @@ ADD hudson.tasks.Maven.xml /var/jenkins_home/
 ADD credentials.xml /var/jenkins_home/
 ADD jobs /var/jenkins_home/jobs
 
-# change own
-RUN chown jenkins:jenkins -R /var/jenkins_home/
-
+# install plugins
 COPY plugins.txt /usr/share/jenkins/plugins.txt
 RUN /usr/local/bin/plugins.sh /usr/share/jenkins/plugins.txt
 
