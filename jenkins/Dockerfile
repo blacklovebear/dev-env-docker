@@ -31,7 +31,7 @@ RUN /usr/local/bin/plugins.sh /usr/share/jenkins/plugins.txt
 ADD hudson.plugins.sonar.SonarGlobalConfiguration.xml /var/jenkins_home/
 ADD hudson.tasks.Maven.xml /var/jenkins_home/
 ADD credentials.xml /var/jenkins_home/
-ADD jobs /var/jenkins_home/
+ADD jobs /var/jenkins_home/jobs
 
 
 
