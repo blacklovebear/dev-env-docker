@@ -33,7 +33,8 @@ sonar:
     container_name: sonarqube
     ports:
         - "9000:9000"
-        - "9092:9092"
+# database port don't publish
+#         - "9092:9092"
 
 # docker run -d -p 8081:8081 --name nexus sonatype/nexus
 nexus:
@@ -53,10 +54,12 @@ tomcat:
 jenkins:
     image: registry.cn-hangzhou.aliyuncs.com/tospur/jenkins
     container_name: jenkins
+    # privileged: true
     ports:
         - "8080:8080"
         - "50000:50000"
     volumes:
+        # - /var/jenkins_home:/var/jenkins_home
         - /var/jenkins_home
     links:
         - gitlab
